@@ -1,0 +1,34 @@
+<doctype html>
+<html>
+<head>
+<title>Simple Hello</title>
+</head>
+
+<!--
+This is sort of an "improvement" over the basic hello
+I presented in example 1.  Here I am using the onload
+attribute to specify a javascript function to run after
+the document is loaded.  This allows me then to inspect
+the DOM and find the results object and put my text
+into it.
+
+Note that if you are using chrome, F12 gives you their dandy
+Javascript console and debugger.
+-->
+
+<script>
+function my_hello ()
+{
+    document.getElementById("results").innerHTML="Hello world";
+}
+</script>
+
+<body onload="my_hello()">
+
+<h3>Today's message should appear below.</h3>
+
+<div id = "results"></div>
+
+</body>
+
+</html>

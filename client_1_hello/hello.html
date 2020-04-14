@@ -1,0 +1,37 @@
+<doctype html>
+<html>
+<head>
+<title>Simple Hello</title>
+</head>
+
+<!--
+The idea here is to write the simplest possible javascript that
+will put the text "hello world" onto a web page.
+Many tutorials will have you use alert, which lauches a popup.
+Others have you use console.log, which goes to some log
+(which you should learn about someday), but not to the page.
+
+I first tried setting up a "div" and then locating it and
+adding text to it.  This fails because of a fine point.
+The javascript runs before the page is displayed and this
+"div" does not exist yet in the DOM!
+
+The code below works.  As near as I can tell, the javascript
+runs first, then the html adds content after whatever the
+javascript has placed in the document.
+-->
+
+<script>
+// document.getElementById("results").innerHTML="Hello world";
+document.write ( "Hello world" );
+</script>
+
+<body>
+
+<h3>Today's message should appear above.</h3>
+
+<div id = "results"></div>
+
+</body>
+
+</html>

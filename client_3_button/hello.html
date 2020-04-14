@@ -1,0 +1,60 @@
+<doctype html>
+<html>
+<head>
+<title>Simple Hello</title>
+</head>
+
+<script>
+
+function pickle() {
+    document.getElementById("results").innerHTML="";
+
+    for(i=0; i < data.length; i++) {  // concatenate HTML
+         var mpg = (data[i].miles / data[i].gal).toFixed(1);
+         var txt = "MPG: " + data[i].mpg + '<br>';
+         txt += "MPG: " + mpg + '<br><br>'
+         // put a flight data in division
+         document.getElementById("results").innerHTML  += txt;
+    }
+}
+
+function pickle_OLD() {
+      alert("Hello World");
+      document.getElementById("results").innerHTML="blip";
+      alert("Bye World");
+}
+
+var data = [
+ 
+  {dest: 'Chicago', miles: 329, gal: 10.6, mpg:""},
+  {dest: 'St.Louis', miles: 284, gal: 10.5, mpg:""},
+  {dest: 'Indianapolis', miles: 122, gal: 3.7, mpg:""},
+  {dest: 'Nashville', miles: 191, gal: 6.4, mpg:""},
+  {dest: 'Cincinatti', miles: 132, gal: 3.9, mpg:""},
+  ];
+
+</script>
+
+<body>
+<h4>Trip Data</h4>
+
+
+     <form name="myform">
+
+<!--
+<input type="button" value="Display Data" id="MPG()"/>
+-->
+<input type="button" value="Display Data" onclick="pickle()">
+
+     </form></br>
+
+<p>
+Results:
+<p>
+
+     <div id = "results"></div>
+
+</body>
+
+
+</html>
