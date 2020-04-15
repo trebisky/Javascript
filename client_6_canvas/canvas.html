@@ -1,0 +1,71 @@
+<doctype html>
+<html>
+<head>
+<title>Basic Canvas stuff</title>
+</head>
+
+<!--
+This is very exciting.  The first time I have tried to do anything
+with a Canvas.  I am going to try painting the whole thing one color
+then using a timer to change the color back and forth.
+
+Note the different html style experiments.  I decide to set the width
+and height in the javascript rather than in the html as this approach
+lets all the size parameters live in the javascript code.
+
+Note that we leave a 10 pixel white area in the canvas around the colored
+region, for no particular reason, but it sorta looks nice.
+
+Tom Trebisky  4-15-2020
+-->
+
+<script>
+
+var timer;
+var ctx;
+var state = 0;
+
+function update ()
+{
+    if ( state == 0 ) {
+	ctx.fillStyle = 'red';
+	ctx.fillRect(10, 10, 150, 100);
+	state = 1;
+    } else {
+	ctx.fillStyle = 'green';
+	ctx.fillRect(10, 10, 150, 100);
+	state = 0;
+    }
+}
+
+function start_handler ()
+{
+    var can;
+
+    timer = window.setInterval( update, 1500 );
+
+    can = document.getElementById('poland');
+    ctx = can.getContext('2d');
+
+    ctx.canvas.width  = 170;
+    ctx.canvas.height = 120;
+
+    ctx.fillStyle = 'green';
+    ctx.fillRect(10, 10, 150, 100);
+}
+
+</script>
+
+<body onload="start_handler()">
+
+<h3>My first canvas</h3>
+
+<!--
+<canvas id="poland" width="170" height="120" style="border:1px solid #000000;"> </canvas>
+<canvas id="poland"> </canvas>
+-->
+<canvas id="poland" style="border:1px solid #000000;"> </canvas>
+
+</body>
+
+</html>
