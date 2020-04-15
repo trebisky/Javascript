@@ -1,0 +1,42 @@
+<doctype html>
+<html>
+<head>
+<title>Simple Hello</title>
+</head>
+
+<!--
+The idea now is to have a continually looping javascript program
+with a timed delay.  This would be the sort of thing you would
+use to generate animation, or some such.
+-->
+
+<script>
+
+var count = 0;
+
+function update ()
+{
+    count++;
+    var msg = "<b>" + count + " seconds</b>";
+    document.getElementById("results").innerHTML=msg;
+}
+
+function my_timer ()
+{
+    window.setInterval( update, 1000 );
+}
+
+</script>
+
+<body onload="my_timer()">
+
+<h3>Time since page load</h3>
+
+<p>
+<b>
+<div id = "results">0</div>
+</b>
+
+</body>
+
+</html>
