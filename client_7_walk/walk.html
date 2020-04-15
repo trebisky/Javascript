@@ -1,0 +1,125 @@
+<doctype html>
+<html>
+<head>
+<title>Random Walk - Javascript Canvas</title>
+</head>
+
+<!--
+
+The idea here is to animate a random walk on a Canvas.
+This is really a stepping stone to doing Conway game of life.
+I want a set of routines to manipulate a grid of block displayed
+on a canvas.
+
+(0,0) is at the top left on the canvas, not that this particularly
+matters for this program.
+
+If we are on a boundary and try to move beyond it, we just punt,
+but we could make this an "infinite" surface and wrap around to
+the other side.
+
+Tom Trebisky  4-15-2020
+-->
+
+<script>
+
+const x_size = 50;	// width
+const y_size = 50;	// height
+const pixel_size = 10;	// size of a block
+
+// const rate = 100;	// milliseconds
+const rate = 50;	// milliseconds
+
+const bg_color = "#00ffff";
+// const pos_color = "#ffffff";
+const pos_color = "#000000";
+
+var timer;
+var ctx;
+
+var x_cur;
+var y_cur;
+
+function grid_init ()
+{
+    var x_pix = x_size * pixel_size;
+    var y_pix = y_size * pixel_size;
+    var can;
+
+    can = document.getElementById('poland');
+    ctx = can.getContext('2d');
+
+    ctx.canvas.width  = x_pix;
+    ctx.canvas.height = y_pix;
+
+    ctx.fillStyle = bg_color;
+    ctx.fillRect ( 0, 0, x_pix, y_pix );
+}
+
+function grid_color ( x, y, color )
+{
+    var xloc = x * pixel_size;
+    var yloc = y * pixel_size;
+
+    ctx.fillStyle = color;
+    ctx.fillRect ( xloc, yloc, pixel_size, pixel_size );
+}
+
+// ------------------------------------
+
+function getRand ( max ) {
+  return Math.floor(Math.random() * max);
+}
+
+function update ()
+{
+    var x_new = x_cur;
+    var y_new = y_cur;
+
+    var code = getRand ( 4 );
+    // console.log ( code );
+
+    if ( code == 0 ) {
+	if ( y_new > 0 )
+	    y_new--;
+    }
+    if ( code == 1 ) {
+	if ( y_new < y_size-1 )
+	    y_new++
+    }
+    if ( code == 2 ) {
+	if ( x_new > 0 )
+	    x_new--;
+    }
+    if ( code == 3 ) {
+	if ( x_new < x_size-1 )
+	    x_new++
+    }
+    grid_color ( x_cur, y_cur, bg_color );
+    x_cur = x_new;
+    y_cur = y_new;
+    grid_color ( x_cur, y_cur, pos_color );
+}
+
+function start_handler ()
+{
+    timer = window.setInterval( update, rate );
+    grid_init ();
+
+    // start in the middle
+    x_cur = x_size / 2;
+    y_cur = y_size / 2;
+    grid_color ( x_cur, y_cur, pos_color );
+}
+
+</script>
+
+<body onload="start_handler()">
+
+<h3>Random walk</h3>
+
+<canvas id="poland" style="border:1px solid #000000;"> </canvas>
+
+</body>
+
+</html>
