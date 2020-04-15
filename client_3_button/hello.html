@@ -4,57 +4,55 @@
 <title>Simple Hello</title>
 </head>
 
+<!--
+Can we have a form just to have a button?  You bet!
+
+Here we have a button generate a javascript event.
+We also add a variable so we can count and display how
+many times the button gets pushed.
+
+Note that the text "Ready" is never seen, it is immediately
+overwritten by the function called by onload.
+
+And a note here.  I always use javascript embedded in the html
+as I am doing here.  It keeps the examples all in one file, but
+more importantly by far, it avoids a browser caching issue.
+If you are developing javascript and changing an external
+xxx.js file, there seems to be no earthly way to get the browser
+to stop using the cached copy and reload the new javascript.
+So I stick to embedded javascript.  If I was going to production
+on a high traffic website, there might be advantages to having
+a separate file with the javascript.
+-->
+
 <script>
-
-function pickle() {
-    document.getElementById("results").innerHTML="";
-
-    for(i=0; i < data.length; i++) {  // concatenate HTML
-         var mpg = (data[i].miles / data[i].gal).toFixed(1);
-         var txt = "MPG: " + data[i].mpg + '<br>';
-         txt += "MPG: " + mpg + '<br><br>'
-         // put a flight data in division
-         document.getElementById("results").innerHTML  += txt;
-    }
+function my_hello ()
+{
+    document.getElementById("results").innerHTML="Hello world";
 }
 
-function pickle_OLD() {
-      alert("Hello World");
-      document.getElementById("results").innerHTML="blip";
-      alert("Bye World");
+var count = 0;
+
+function next_handler ()
+{
+    count++;
+    var msg = "Hello Charlie " + count;
+
+    document.getElementById("results").innerHTML=msg;
 }
-
-var data = [
- 
-  {dest: 'Chicago', miles: 329, gal: 10.6, mpg:""},
-  {dest: 'St.Louis', miles: 284, gal: 10.5, mpg:""},
-  {dest: 'Indianapolis', miles: 122, gal: 3.7, mpg:""},
-  {dest: 'Nashville', miles: 191, gal: 6.4, mpg:""},
-  {dest: 'Cincinatti', miles: 132, gal: 3.9, mpg:""},
-  ];
-
 </script>
 
-<body>
-<h4>Trip Data</h4>
+<body onload="my_hello()">
 
+<h3>Just click the button</h3>
 
-     <form name="myform">
-
-<!--
-<input type="button" value="Display Data" id="MPG()"/>
--->
-<input type="button" value="Display Data" onclick="pickle()">
-
-     </form></br>
+<div id = "results">Ready</div>
 
 <p>
-Results:
-<p>
-
-     <div id = "results"></div>
+<form name="myform">
+<input type="button" value="Next" onclick="next_handler()">
+</form>
 
 </body>
-
 
 </html>
