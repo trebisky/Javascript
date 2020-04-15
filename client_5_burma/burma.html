@@ -1,0 +1,67 @@
+<doctype html>
+<html>
+<head>
+<title>Burma Shave</title>
+</head>
+
+<!--
+This is just for fun.  Now that we know how to use the
+javascript setInterval() call, we use it to display some
+scrolling text.  The only new things are stopping the
+interval timer, and disabling the button while the
+animation is running.
+-->
+
+<script>
+
+var timer;
+var count = 0;
+
+var burmas = [
+	"Within this vale",
+	"of toil",
+	"and sin",
+	"your head grow bald",
+	"but not your chin -- use",
+	"Burma Shave",
+];
+
+function update ()
+{
+    var msg = "<h1>" + burmas[count] + "</h1>";
+    document.getElementById("results").innerHTML=msg;
+    count++;
+    if ( count >= burmas.length ) {
+	clearInterval ( timer );
+	document.getElementById("the_button").disabled = false;
+	document.getElementById("the_button").value = " Start ";
+    }
+}
+
+function start_handler ()
+{
+    count = 0;
+    timer = window.setInterval( update, 2000 );
+    document.getElementById("the_button").disabled = true;
+    document.getElementById("the_button").value = " wait ";
+}
+
+</script>
+
+<body>
+
+<h3>Signs along the road ......</h3>
+
+<p>
+<b>
+<div id="results">--</div>
+</b>
+
+<p>
+<form name="myform">
+<input type="button" id="the_button" value=" Start " onclick="start_handler()">
+</form>
+
+</body>
+
+</html>
