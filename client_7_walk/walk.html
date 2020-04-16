@@ -16,7 +16,8 @@ matters for this program.
 
 If we are on a boundary and try to move beyond it, we just punt,
 but we could make this an "infinite" surface and wrap around to
-the other side.
+the other side.  I decided, "why not" and added two flavors of
+the function "wrap()".  One sticks on the edge, the other wraps.
 
 Tom Trebisky  4-15-2020
 -->
@@ -24,7 +25,7 @@ Tom Trebisky  4-15-2020
 <script>
 
 const x_size = 50;	// width
-const y_size = 50;	// height
+const y_size = 25;	// height
 const pixel_size = 10;	// size of a block
 
 // const rate = 100;	// milliseconds
@@ -71,6 +72,26 @@ function getRand ( max ) {
   return Math.floor(Math.random() * max);
 }
 
+// stick on the edge
+function Xwrap ( val, limit )
+{
+	if ( val < 0 )
+	    return 0;
+	if ( val >= limit )
+	    return limit-1;
+	return val;
+}
+
+// wrap to the other side
+function wrap ( val, limit )
+{
+	if ( val < 0 )
+	    return limit-1;
+	if ( val >= limit )
+	    return 0;
+	return val;
+}
+
 function update ()
 {
     var x_new = x_cur;
@@ -80,20 +101,16 @@ function update ()
     // console.log ( code );
 
     if ( code == 0 ) {
-	if ( y_new > 0 )
-	    y_new--;
+	y_new = wrap ( y_new-1, y_size );
     }
     if ( code == 1 ) {
-	if ( y_new < y_size-1 )
-	    y_new++
+	y_new = wrap ( y_new+1, y_size );
     }
     if ( code == 2 ) {
-	if ( x_new > 0 )
-	    x_new--;
+	x_new = wrap ( x_new-1, x_size );
     }
     if ( code == 3 ) {
-	if ( x_new < x_size-1 )
-	    x_new++
+	x_new = wrap ( x_new+1, x_size );
     }
     grid_color ( x_cur, y_cur, bg_color );
     x_cur = x_new;
