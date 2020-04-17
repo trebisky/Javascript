@@ -28,18 +28,15 @@ const x_size = 50;	// width
 const y_size = 25;	// height
 const pixel_size = 10;	// size of a block
 
+// var timer;
 // const rate = 100;	// milliseconds
-const rate = 50;	// milliseconds
+// const rate = 50;	// milliseconds
 
 const bg_color = "#00ffff";
 // const pos_color = "#ffffff";
 const pos_color = "#000000";
 
-// var timer;
 var ctx;
-
-var x_cur;
-var y_cur;
 
 function grid_init ()
 {
@@ -68,7 +65,9 @@ function grid_color ( x, y, color )
 
 // ------------------------------------
 
-/* XXX - these should be in the map object */
+/* XXX - these should be in a map object
+ * along with the map itself.
+ */
 var xmap;
 var ymap;
 
@@ -110,26 +109,6 @@ function map_show ( map )
 
 function getRand ( max ) {
   return Math.floor(Math.random() * max);
-}
-
-// stick on the edge
-function Xwrap ( val, limit )
-{
-	if ( val < 0 )
-	    return 0;
-	if ( val >= limit )
-	    return limit-1;
-	return val;
-}
-
-// wrap to the other side
-function wrap ( val, limit )
-{
-	if ( val < 0 )
-	    return limit-1;
-	if ( val >= limit )
-	    return 0;
-	return val;
 }
 
 function update ()
