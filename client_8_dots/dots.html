@@ -1,0 +1,163 @@
+<doctype html>
+<html>
+<head>
+<title>Random Dots - Javascript Canvas</title>
+</head>
+
+<!--
+Clicking reload gives a different pattern each time since
+Javascript does something clever about initializing the
+random number generator each time.
+
+More fiddling with the canvas, but more than anything fiddling
+with a datastructure to hold a 2 dimensional bitmap.
+I am just going to use a 1D array and compute my own offsets.
+Grid, and more expecially map should become objects someday.
+
+I could sweat the fact that my map is sparse and I am rewriting each
+and every block in the canvas ---- I could be smart and keep the state
+of the canvas and only rewrite blocks that have changed.  Maybe that
+would be worth the trouble if we start pushing this code.
+
+Tom Trebisky  4-16-2020
+-->
+
+<script>
+
+const x_size = 50;	// width
+const y_size = 25;	// height
+const pixel_size = 10;	// size of a block
+
+// const rate = 100;	// milliseconds
+const rate = 50;	// milliseconds
+
+const bg_color = "#00ffff";
+// const pos_color = "#ffffff";
+const pos_color = "#000000";
+
+// var timer;
+var ctx;
+
+var x_cur;
+var y_cur;
+
+function grid_init ()
+{
+    var x_pix = x_size * pixel_size;
+    var y_pix = y_size * pixel_size;
+    var can;
+
+    can = document.getElementById('poland');
+    ctx = can.getContext('2d');
+
+    ctx.canvas.width  = x_pix;
+    ctx.canvas.height = y_pix;
+
+    ctx.fillStyle = bg_color;
+    ctx.fillRect ( 0, 0, x_pix, y_pix );
+}
+
+function grid_color ( x, y, color )
+{
+    var xloc = x * pixel_size;
+    var yloc = y * pixel_size;
+
+    ctx.fillStyle = color;
+    ctx.fillRect ( xloc, yloc, pixel_size, pixel_size );
+}
+
+// ------------------------------------
+
+/* XXX - these should be in the map object */
+var xmap;
+var ymap;
+
+function map_init ( xdim, ydim )
+{
+    var size = xdim * ydim;
+    var m = new Array ( size );
+    xmap = xdim;
+    ymap = ydim;
+
+    for ( var i=0; i<size; i++ )
+	m[i] = 0;
+    return m;
+}
+
+function map_set ( map, x, y )
+{
+    map[y*ymap+x] = 1
+}
+
+function map_clear ( map, x, y )
+{
+    map[y*ymap+x] = 0
+}
+
+function map_show ( map )
+{
+    for ( var x=0; x<xmap; x++ )
+	for ( var y=0; y<ymap; y++ ) {
+	    var val = map[y*ymap+x];
+	    if ( val == 1 )
+		grid_color ( x, y, pos_color );
+	    else
+		grid_color ( x, y, bg_color );
+	}
+}
+
+// ------------------------------------
+
+function getRand ( max ) {
+  return Math.floor(Math.random() * max);
+}
+
+// stick on the edge
+function Xwrap ( val, limit )
+{
+	if ( val < 0 )
+	    return 0;
+	if ( val >= limit )
+	    return limit-1;
+	return val;
+}
+
+// wrap to the other side
+function wrap ( val, limit )
+{
+	if ( val < 0 )
+	    return limit-1;
+	if ( val >= limit )
+	    return 0;
+	return val;
+}
+
+function update ()
+{
+}
+
+function start_handler ()
+{
+    // timer = window.setInterval( update, rate );
+    grid_init ();
+    var map = map_init ( x_size, y_size );
+
+    for ( count=0; count<40; count++ ) {
+	var x = getRand ( x_size );
+	var y = getRand ( y_size );
+	map_set ( map, x, y )
+    }
+    map_show ( map );
+}
+
+</script>
+
+<body onload="start_handler()">
+
+<h3>Random dots - reload for new pattern</h3>
+
+<canvas id="poland" style="border:1px solid #000000;"> </canvas>
+
+</body>
+
+</html>
