@@ -1,0 +1,144 @@
+<doctype html>
+<html>
+<head>
+<title>Random Dots - Javascript Canvas</title>
+</head>
+
+<!--
+There are two changes here over the demo in client_8_dots.
+One is we start using a Map object.
+Second is that we add animation.
+
+Tom Trebisky  4-19-2020
+-->
+
+<script>
+
+const x_size = 50;	// width
+const y_size = 25;	// height
+const pixel_size = 10;	// size of a block
+
+var timer;
+const rate = 2500;	// milliseconds
+
+const bg_color = "#00ffff";
+// const pos_color = "#ffffff";
+const pos_color = "#000000";
+
+var ctx;
+
+var map;
+
+function grid_init ()
+{
+    var x_pix = x_size * pixel_size;
+    var y_pix = y_size * pixel_size;
+    var can;
+
+    can = document.getElementById('poland');
+    ctx = can.getContext('2d');
+
+    ctx.canvas.width  = x_pix;
+    ctx.canvas.height = y_pix;
+
+    ctx.fillStyle = bg_color;
+    ctx.fillRect ( 0, 0, x_pix, y_pix );
+}
+
+function grid_color ( x, y, color )
+{
+    var xloc = x * pixel_size;
+    var yloc = y * pixel_size;
+
+    ctx.fillStyle = color;
+    ctx.fillRect ( xloc, yloc, pixel_size, pixel_size );
+}
+
+// ------------------------------------
+
+function map_set ( x, y )
+{
+    this.data[y*this.ymap+x] = 1
+}
+
+function map_clear ( x, y )
+{
+    this.data[y*this.ymap+x] = 0
+}
+
+function map_clear_all ()
+{
+    for ( var i=0; i<this.size; i++ )
+	this.data[i] = 0;
+}
+
+function map_show ()
+{
+    for ( var x=0; x<this.xmap; x++ )
+	for ( var y=0; y<this.ymap; y++ ) {
+	    var val = this.data[y*this.ymap+x];
+	    if ( val == 1 )
+		grid_color ( x, y, pos_color );
+	    else
+		grid_color ( x, y, bg_color );
+	}
+}
+
+function Map ( xdim, ydim )
+{
+    this.xmap = xdim;
+    this.ymap = ydim;
+    this.size = xdim * ydim;
+
+    this.data = new Array ( this.size );
+
+    this.set = map_set;
+    this.clear = map_clear;
+    this.show = map_show;
+    this.clear_all = map_clear_all;
+    this.clear_all ();
+}
+
+// ------------------------------------
+
+function getRand ( max ) {
+  return Math.floor(Math.random() * max);
+}
+
+function new_dots ()
+{
+    map.clear_all ();
+    for ( var count=0; count<40; count++ ) {
+	var x = getRand ( x_size );
+	var y = getRand ( y_size );
+	map.set ( x, y )
+    }
+}
+
+function update ()
+{
+	new_dots ();
+	map.show ();
+}
+
+function start_handler ()
+{
+    timer = window.setInterval( update, rate );
+    grid_init ();
+    map = new Map ( x_size, y_size );
+
+    new_dots ();
+    map.show ();
+}
+
+</script>
+
+<body onload="start_handler()">
+
+<h3>Random dots</h3>
+
+<canvas id="poland" style="border:1px solid #000000;"> </canvas>
+
+</body>
+
+</html>
