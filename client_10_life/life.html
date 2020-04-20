@@ -14,12 +14,13 @@ Tom Trebisky  4-19-2020
 
 <script>
 
-const x_size = 50;	// width
-const y_size = 25;	// height
+const x_size = 64;	// width
+const y_size = 64;	// height
 const pixel_size = 10;	// size of a block
+const start_count = 120;
 
 var timer;
-const rate = 2500;	// milliseconds
+const rate = 1000;	// milliseconds
 
 const bg_color = "#00ffff";
 // const pos_color = "#ffffff";
@@ -99,7 +100,70 @@ function Map ( xdim, ydim )
 
 // ------------------------------------
 
+/* This is the heart of Conway's game of life.
+ * everything else in this file is scaffolding and
+ * support (and canvas display code).
+ * A cell has 8 neighbors (what are called
+ *  "the Moore neighborhood".
+ * The rules are:
+ *   A living cell with less than 2 neighbors, dies.
+ *   A living cell with 2 or 3 neighbors, lives.
+ *   A living cell with more than 3 neighbors, dies.
+ *   A dead cell with exactly 3 becomes alive.
+ * ----
+ * This can be boiled down to:
+ *   Any live cell with 2 or 3 neighbors stays alive.
+ *   Any dead cell with exactly 3 neighbors becomes alive.
+ *   All other cells are dead.
+ */
+
+function count_neighbors ( m, x, y )
+{
+    var xm, xp, ym, yp;
+    var count;
+    var ydim;
+
+    xm = (x > 0 ) ? x-1 : m.xmap - 1;
+    ym = (y > 0 ) ? y-1 : m.ymap - 1;
+    xp = (x < m.xmap-1) ? x+1 : 0;
+    yp = (y < m.ymap-1) ? y+1 : 0;
+
+    count = 0;
+    ydim = m.ymap;
+    count += m.data[ym*ydim+xm];
+    count += m.data[y*ydim+xm];
+    count += m.data[yp*ydim+xm];
+
+    count += m.data[ym*ydim+x];
+    count += m.data[yp*ydim+x];
+
+    count += m.data[ym*ydim+xp];
+    count += m.data[y*ydim+xp];
+    count += m.data[yp*ydim+xp];
+
+    return count;
+}
+
 function run_life ( m1, m2 )
+{
+    var val;
+    var nbr;
+    var index;
+
+    for ( var x=0; x<m1.xmap; x++ )
+	for ( var y=0; y<m1.ymap; y++ ) {
+	    index = y*m1.ymap + x;
+	    nbr = count_neighbors ( m1, x, y );
+	    val = 0;
+	    if ( m1.data[index] == 1 && (nbr == 2 || nbr == 3) )
+		val = 1;
+	    if ( m1.data[index] == 0 && nbr == 3 )
+		val = 1;
+	    m2.data[index] = val;
+	}
+}
+
+function copy ( m1, m2 )
 {
     for ( var i=0; i<m1.size; i++ )
 	m2.data[i] = m1.data[i];
@@ -118,7 +182,7 @@ function getRand ( max ) {
 function init_map ( map )
 {
     map.clear_all ();
-    for ( var count=0; count<40; count++ ) {
+    for ( var i=0; i<start_count; i++ ) {
 	var x = getRand ( x_size );
 	var y = getRand ( y_size );
 	map.set ( x, y )
