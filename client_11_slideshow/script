@@ -1,0 +1,86 @@
+// one based index of the current slide.
+// we maintain this for next and previous.
+var cur_slide;
+
+function nextSlide ()
+{
+    showSlide ( cur_slide+1 );
+}
+
+function prevSlide ()
+{
+    showSlide ( cur_slide-1 );
+}
+
+// Next/previous controls
+// function plusSlide(n) {
+//   showSlide(slideIndex += n);
+// }
+
+// available to select a specific slide.
+// function currentSlide(n) {
+//   showSlide(slideIndex = n);
+// }
+
+function showSlide ( slide ) {
+    var i;
+    var slides = document.getElementsByClassName("mySlides");
+//    var dots = document.getElementsByClassName("dot");
+    console.log ( slides );
+    console.log ( slides.length );
+
+    if ( slide > slides.length)
+        slide = 1;
+    if ( slide < 1 )
+	slide = slides.length;
+    cur_slide = slide;
+
+    for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+    }
+
+//  for (i = 0; i < dots.length; i++) {
+//      dots[i].className = dots[i].className.replace(" active", "");
+//  }
+
+    slides[slide-1].style.display = "block";
+    console.log ( "Display slide " + slide );
+
+//  dots[slideIndex-1].className += " active";
+}
+
+// call this from onload to show first slide.
+function firstSlide ()
+{
+    showSlide (1);
+}
+
+// --------------------------
+
+var cur_show;
+
+function showSlides ()
+{
+  var slides = document.getElementsByClassName("mySlides");
+
+  for ( var i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+
+  cur_show++;
+  if (cur_show > slides.length)
+    cur_show = 1;
+  slides[cur_show-1].style.display = "block";
+
+  // tail recursion, every 2 seconds change image.
+  setTimeout(showSlides, 2000);
+}
+
+/* Automated slideshow */
+function startShow ()
+{
+    cur_show = 0;
+    showSlides ();
+}
+
+// THE END

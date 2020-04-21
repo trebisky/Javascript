@@ -1,0 +1,64 @@
+#!/bin/ruby
+
+# Tom Trebisky  4-20-2020
+# ideas for how to do this from:
+#  https://www.w3schools.com/howto/howto_js_slideshow.asp
+
+ims_all = Dir.glob ( "*.jpg" )
+#ims = ims_all[0,2].sort
+ims = ims_all.sort
+
+num = ims.size
+css = "css"
+js = "script"
+
+def inject_file ( file )
+  IO.foreach( file ) { |line|
+    puts line
+  }
+end
+
+# -----------------
+
+puts "<html lang=\"en-US\">"
+puts "<head>"
+puts "<title>Slideshow</title>"
+# Doing this gives the usual caching nightmares
+#puts "<link rel=\"stylesheet\" href=\"#{css}\">"
+puts "<style>"
+inject_file ( css )
+puts "</style>"
+puts "</head>"
+
+puts "<script>"
+inject_file ( js )
+puts "</script>"
+
+# Nothing worked until we hooked up our startup function
+# as an onload handler.
+puts "<body onload=\"firstSlide()\">"
+
+puts "<h3>Filibuster Mine -- near Fresno, California</h3>"
+
+# <div style="max-width:1000px;min-width:250px;position:relative;margin:auto;">
+puts "<div class=\"slideshow-container\">"
+
+i = 0
+ims.each { |im|
+    i += 1
+    #print "<div class=\"mySlides fade\">\n"
+    print "<div class=\"mySlides\">\n"
+    print "<div class=\"numbertext\">#{i} / #{num}</div>\n"
+    print "<img src=\"#{im}\" class=\"myImage\">\n"
+    print "<div class=\"text\">Caption</div>\n"
+    puts "</div>"
+    print "\n"
+}
+
+puts "<a class=\"prev\" onclick=\"prevSlide()\">&#10094;</a>"
+puts "<a class=\"next\" onclick=\"nextSlide()\">&#10095;</a>"
+
+puts "</div>"
+print "\n"
+
+puts "</body>"
