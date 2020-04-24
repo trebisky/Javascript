@@ -23,3 +23,11 @@ some example, you will need to just type "make" first.
 
 I know this will make some people crazy, but it is actually
 a great way to do things -- so get with it!
+
+With the Makefile, what I do to start a new project is:
+
+* cp -var old new
+* cd new
+* make clean
+* edit the Makefile to add new npm packages if any
+* make
