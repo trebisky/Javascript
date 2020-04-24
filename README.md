@@ -14,3 +14,12 @@ directory name.
 I typically run the client examples in the chrome browser via a URL like:
 
 * file:///home/tom/Javascript/Github/client_4_timer/timer.html
+
+The server examples use node in some way.
+Since this involves running npm and doing some setup,
+I decided to include a Makefile to run the appropriate npm
+commands.  So if you clone this repository and want to run
+some example, you will need to just type "make" first.
+
+I know this will make some people crazy, but it is actually
+a great way to do things -- so get with it!
