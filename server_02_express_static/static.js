@@ -15,15 +15,27 @@
 var express = require('express');
 const port = 8080;
 
+function listen_callback ()
+{
+    console.log('listening on port ' + port);
+}
+
 function run_server ()
 {
     var app = express();
+
     app.use( express.static('public') );
-    app.listen ( port, () => console.log('listening on port ' + port));
+    // app.listen ( port, () => console.log('listening on port ' + port));
+    app.listen ( port, listen_callback );
 }
 
 /* Note that "app.use" installs middleware, in this case the
 * "static" processing module.
+*
+* Also note the use of the "arrow function" syntax in the listen call.
+* This kind of terse syntax buys us little in an example like this,
+* so I comment it out and use the simpler but more verbose code
+* (even adding an actual callback function) for clarity.
 */
 
 run_server ();
