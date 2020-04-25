@@ -31,13 +31,6 @@ const port = 8080;
 
 var hb = require('express-handlebars');
 
-/* This module is supposed to set things up to allow cross domain Ajax stuff.
- * But so far it does not work.
- *
- * https://medium.com/@alexishevia/using-cors-in-express-cac7e29b005b
- */
-var cors = require('cors');
-
 /* optional monkey business */
 var child_process = require('child_process');
 
@@ -138,8 +131,6 @@ function run_server ()
     var app = express();
 
     app.use( express.static('public') );
-
-    app.use ( cors() );
 
     hb_setup ( app );
 

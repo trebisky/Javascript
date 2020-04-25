@@ -3,7 +3,7 @@
 <script>
 function get_weather ( airport )
 {
-    var url = "http://api.geonames.org/findNearByWeatherJson?";
+    var url = "http://api.geonames.org/findNearByWeatherJSON?";
     url += airport;
     url += "&username=jctcstudents";
 
@@ -19,9 +19,10 @@ function get_weather ( airport )
 	    elevF = elevM * 3.28;
 
 	    wdata = "Station: " + station + "<br>";
-	    wdata += "Temp (F): " + degF.foFixed(1) + "<br>";
+	    // wdata += "Temp (F): " + degF.toFixed(1) + "<br>";
+	    wdata += "Temp (F): " + degF + "<br>";
 	    wdata += "Humidity: " + humidity + "%<br>";
-	    wdata += "Elevation: " + elevation + " feet.<br>";
+	    wdata += "Elevation: " + elevF + " feet<br>";
 
  	    document.getElementById('data').innerHTML = wdata;
 	} );
@@ -32,7 +33,10 @@ function button_handler ()
     // Atlanta, GA
     // var airport = "lat=33.640411&lng=-84.491853";
     // Boston, MA
-    var airport = "lat=42.3656132&lng=-71.0095602"
+    // var airport = "lat=42.3656132&lng=-71.0095602"
+
+    // Tucson, Arizona
+    var airport = "lat=32.2226&lng=-110.9747"
 
     get_weather ( airport );
 }

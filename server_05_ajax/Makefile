@@ -11,7 +11,6 @@ setup:
 	npm init -y
 	npm install --save express
 	npm install --save express-handlebars
-	npm install --save cors
 
 run:
 	node weather.js
