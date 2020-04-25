@@ -1,0 +1,54 @@
+<script>
+
+var pushes = 0;
+
+function button_handler ()
+{
+    var msg;
+
+    pushes++;
+    if ( pushes == 1 )
+	msg = "Thanks for pushing the button";
+    else if ( pushes == 2 )
+	msg = "Thanks for pushing the button again!";
+    else
+	msg = "Thanks for pushing the button " + pushes + " times!";
+
+    document.getElementById('data').innerHTML = msg;
+}
+
+function silly_handler ()
+{
+    document.getElementById('data').innerHTML = "Oh no!  You never should have done that.";
+    pushes = 0;
+}
+
+window.onload = function ()
+{
+    document.getElementById('butt').onclick = button_handler;
+    document.getElementById('silly').onclick = silly_handler;
+}
+
+</script>
+
+    <h2>Greetings, glad you made it here
+    {{#if ismale }}
+    Mr. {{name}}
+    {{else}}
+    Mrs. {{name}}
+    {{/if}}
+    </h2>
+
+    <p>
+    <div id='data'></div>
+
+    <form>
+    <p><input type='button' id='butt' value="Push this button">
+    </form>
+
+    <!-- note this.  An a tag that is never intended to do anything
+     with its useless href field.  We just want the event of clicking it,
+     which we map to a javascript handler above.
+     -->
+    <p>
+    <a href="#" id="silly">Whatever you do, do NOT click this link!!</a>
