@@ -1,10 +1,11 @@
-# Ajax
+# express with forms, POST, and body-parser
 
-This is sort of out of order, but I wanted to try my hand at some simple Ajax.
-I will add a button to the info page that allows weather to be requested.
-Note that this is client side, so that needs to be added to the info.hbs template.
+I trimmed a lot out of the past demo, which was sort of growing out
+of bounds, and reduced this to a simple demo of a form, with a little
+bit of monkey business with a button and a link mapped to client side
+javascript.
 
-I had to add a plugin called "Allow CORS" to my browser before the Ajax
-to geonames.org would work.  And I had to click it to actually allow (the plugin
-allows me to toggle this on or off).  It is not a total surprise that I would
-need to do this, certain servers may also reject this sort of thing.
+I use the handlebars #if helper (even though I could have done the
+same using some javascript logic in this case).
+
+The plan is to move on to sessions in the next demo and build on this.
