@@ -34,13 +34,6 @@ var hb = require('express-handlebars');
 /* optional monkey business */
 var child_process = require('child_process');
 
-/* This gets called when the server is successfully launched.
- */
-function listen_callback ()
-{
-    console.log('listening on port ' + port);
-}
-
 /* I apologize for this, but I wanted to play around with
  * running system commands from javascript (on the server)
  * and then letting handlebars inject their output into
@@ -124,6 +117,13 @@ function hb_setup ( app )
 {
     app.set ( 'view engine', hb_ext );
     app.engine ( hb_ext, hb ({extname: hb_ext}) );
+}
+
+/* This gets called when the server is successfully launched.
+ */
+function listen_callback ()
+{
+    console.log('listening on port ' + port);
 }
 
 function run_server ()
