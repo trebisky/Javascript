@@ -1,0 +1,69 @@
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<script>
+function get_weather ( airport )
+{
+    var url = "http://api.geonames.org/findNearByWeatherJson?";
+    url += airport;
+    url += "&username=jctcstudents";
+
+    axios.get(url) .then( function(response) {
+	    city = response.data;
+
+	    station = city.weatherObservation.stationName;
+	    degC = city.weatherObservation.temperature;
+	    humidity = city.weatherObservation.humidity;
+	    elevM = city.weatherObservation.elevation;
+
+	    degF = (9/5)*degC + 32;
+	    elevF = elevM * 3.28;
+
+	    wdata = "Station: " + station + "<br>";
+	    wdata += "Temp (F): " + degF.foFixed(1) + "<br>";
+	    wdata += "Humidity: " + humidity + "%<br>";
+	    wdata += "Elevation: " + elevation + " feet.<br>";
+
+ 	    document.getElementById('data').innerHTML = wdata;
+	} );
+}
+
+function button_handler ()
+{
+    // Atlanta, GA
+    // var airport = "lat=33.640411&lng=-84.491853";
+    // Boston, MA
+    var airport = "lat=42.3656132&lng=-71.0095602"
+
+    get_weather ( airport );
+}
+
+window.onload = function ()
+{
+    document.getElementById('butt').onclick = button_handler;
+}
+
+</script>
+
+    <h2>INFO page - here you are!</h2>
+    <p>
+    Date: {{date}}
+    <p>
+    System:
+    <br>
+    {{system}}
+
+    <p>
+    System2:
+    <!-- we need 3 brackets so it leaves html markup alone -->
+    <pre>
+    {{{system2}}}
+    </pre>
+
+    <p>
+    Weather:
+
+    <div id='data'></div>
+
+    <form>
+    <p><input type='button' id='butt' value="Get weather data">
+    </form>
