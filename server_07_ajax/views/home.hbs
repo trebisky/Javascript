@@ -1,0 +1,61 @@
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<!-- We need to get axios for the client from someplace,
+     the above link seems to do the job. -->
+
+<h2>HOME page - here you are!</h2>
+
+<p>
+<div id="borax"></div>
+
+<!-- it is actually OK to put the script at the end.
+     And in fact that is just the thing here because
+     that ensures that the div element we look for
+     actually exists.
+ -->
+
+<script>
+
+/* Most people place anonymous functions right in with the
+ * axios.post call, but I find it clearer and more
+ * instructive to have explicit functions like this.
+ * At least for a demo or example.
+ * i.e. I "unwrap" the usual terse syntax.
+ */
+
+function axios_then_handler ( response )
+{
+    console.log ( response );
+    console.log ( response.data );
+    console.log ( typeof response.data );
+    document.getElementById("borax").innerHTML = response.data;
+}
+
+function axios_error_handler ( error )
+{
+    console.log(error);
+    document.getElementById("borax").innerHTML = "AJAX error";
+}
+
+/* This just kicks off the request */
+function get_via_ajax ()
+{
+    axios.post('/getline', {param: 1776})
+	.then ( axios_then_handler )
+	.catch( axios_error_handler );
+}
+
+
+function update ()
+{
+    document.getElementById("borax").innerHTML = get_via_ajax ();
+}
+
+function setup ()
+{
+    window.setInterval( update, 2000 );
+    document.getElementById("borax").innerHTML = "starting ...";
+}
+
+setup ();
+</script>
