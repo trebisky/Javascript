@@ -38,17 +38,11 @@ function axios_error_handler ( error )
 }
 
 /* This just kicks off the request */
-function get_via_ajax ()
+function update ()
 {
     axios.post('/getline', {param: 1776})
 	.then ( axios_then_handler )
 	.catch( axios_error_handler );
-}
-
-
-function update ()
-{
-    document.getElementById("borax").innerHTML = get_via_ajax ();
 }
 
 function setup ()

@@ -18,7 +18,8 @@ function hb_setup ( app )
     app.engine ( hb_ext, hb ({extname: hb_ext}) );
 
     // Since we just need boody-parser to do Ajax,
-    //  we probably don't need this first line.
+    //  we don't need this line.
+    //  (it would be needed if we posted data from a form)
     // app.use(bodyParser.urlencoded({ extended: true }));
     app.use(bodyParser.json());
 }
@@ -50,33 +51,23 @@ function run_server ()
     /* This handles our Ajax request.
      * The request has a single "param", which we
      * log and ignore.
+     * This is it !!!  This is all we need to do!
      */
     app.post ( "/getline", function(req, res) {
 	var param = req.body.param;
 	var line;
 
-	test_counter++;
-	line = "Testing in Tucson: " + test_counter;
 	// We do get the param setting of 1776 !! */
 	// console.log ( param );
 
-	/* Does this need to be JSON ? */
+	test_counter++;
+	line = "Testing in Tucson: " + test_counter;
+
 	res.send ( line );
     } );
 
-    // app.get ( "/info", info_handler );
-
     app.listen ( port, listen_callback );
 }
-
-/* Note that "app.use" installs middleware, in this case the
-* "static" processing module.
-*
-* Also note the use of the "arrow function" syntax in the listen call.
-* This kind of terse syntax buys us little in an example like this,
-* so I comment it out and use the simpler but more verbose code
-* (even adding an actual callback function) for clarity.
-*/
 
 run_server ();
 
