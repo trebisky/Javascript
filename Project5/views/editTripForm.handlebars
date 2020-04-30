@@ -1,0 +1,37 @@
+<p>Trip Date: {{date}}</p>
+<p>City:{{city}}</p>
+
+<form method='post' action='editTrip'>
+
+<input type='hidden' name='tripDate' value={{date}}>
+
+<table cellspacing="22">
+
+	<tr><td>Miles</td><td>{{miles}}<t/d>          <td> <button type='button' id='mls'>Edit</button> <span id='mlsInput'  style="display: none"><input name='newMiles' size='6'> Enter new value</span></td></tr>
+    <tr><td>Gallons</td><td>{{gallons}}<t/d>      <td> <button type='button' id='gln'>Edit</button> <span id='glnInput'  style="display: none"><input name='newGallons' size='6'> Enter new value</span></td></tr>
+
+    </tr>
+</table>
+<p><input type='submit'></p>
+
+</form>
+
+<script>
+
+document.getElementById('mls').onclick = function() {
+	if(document.getElementById('mlsInput').style.display=='none')
+	   document.getElementById('mlsInput').style.display='inline'
+	else
+		document.getElementById('mlsInput').style.display=='none'
+};
+
+
+document.getElementById('gln').onclick =function() {
+	if(document.getElementById('glnInput').style.display=='none')  
+		document.getElementById('glnInput').style.display=='inline'
+	else
+		document.getElementById('glnInput').style.display=='none' 
+};
+
+
+</script>

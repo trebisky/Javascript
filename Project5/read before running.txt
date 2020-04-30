@@ -1,0 +1,9 @@
+we need our work-around here, first run this...
+
+   npm install express mongoose express-handlebars body-parser --save
+
+AND.then..
+
+   npm install handlebars@4.5.3 --save
+
+mongod needs to be running locally

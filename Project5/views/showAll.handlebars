@@ -1,0 +1,16 @@
+<h3>All Trip Data</h3>
+
+<table cellspacing="22">
+<tr><th> Date</th><th>City </th><th>Miles </th><th> Gallons</th><th> Miles per Gallon</th>
+{{#each trips}}
+	<tr>
+	  <td> {{date}}</td>
+	  <td> {{city}}</td>
+	  <td> {{miles}}</td>
+	  <td> {{gallons}}</td>
+	  <td> {{mpg}}</td>
+	  <td><a href="/editTrip?tripDate={{date}}"> Edit</a></td>
+	  </tr>
+ {{/each}}
+ </table>
+ <br>
